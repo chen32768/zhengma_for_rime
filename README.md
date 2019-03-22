@@ -60,4 +60,4 @@
 2）打开输入法设定，选择心仪的郑码方案即可。
 
 ## 九、依赖项目
-编码反查及郑码拼音功能依赖于[pinyin-simp](https://github.com/rime/rime-pinyin-simp)。
+编码反查及郑码拼音功能依赖于[rime-pinyin-simp](https://github.com/rime/rime-pinyin-simp)。
