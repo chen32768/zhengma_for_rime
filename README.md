@@ -60,6 +60,4 @@
 2）打开输入法设定，选择心仪的郑码方案即可。
 
 ## 九、依赖项目
-编码反查及郑码拼音功能需要安装pinyin-simp方案，安装方法如下：  
-1）打开输入法设定，选择“获取更多输入方案”。  
-2）输入pinyin-simp并回车，即可安装完成。
+编码反查及郑码拼音功能依赖于[pinyin-simp](https://github.com/rime/rime-pinyin-simp)。
