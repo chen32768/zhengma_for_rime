@@ -51,6 +51,7 @@
 
 ## 七、快捷按键
 * Ctrl+空格：切换中英文输入
+* Ctrl+逗号：切换中英文输入
 * Ctrl+句号：切换中英文标点
 * Shift+空格：切换全角和半角
 * Ctrl+\`（就是Tab上方那个按键）：打开方案选单
@@ -60,4 +61,4 @@
 2）打开输入法设定，选择心仪的郑码方案即可。
 
 ## 九、依赖项目
-编码反查及郑码拼音功能依赖于[rime-pinyin-simp](https://github.com/rime/rime-pinyin-simp)。
+编码反查及郑码拼音所需的拼音方案来自[rime-pinyin-simp](https://github.com/rime/rime-pinyin-simp)。
