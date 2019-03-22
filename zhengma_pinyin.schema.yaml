@@ -1,0 +1,172 @@
+# Rime schema settings
+# encoding: utf-8
+
+schema:
+  schema_id: zhengma_pinyin
+  name: "郑码拼音"
+  version: "1.0"
+  author:
+    - 发明人 郑易里先生
+  description:
+    郑码汉语拼音混合输入
+    按 ` 键进入拼音反查
+  dependencies:
+    - pinyin_simp
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 英文 ]
+  - name: ascii_punct
+    states: [ ，。, ，． ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - reverse_lookup_translator
+    # 固定词频的翻译器
+    - table_translator@fixed
+    # 默认翻译器
+    - table_translator
+  filters:
+    # 过滤重复字词
+    - uniquifier
+
+#固定词频的翻译器
+fixed:
+  # 源自默认翻译器
+  __include: translator
+  # 关闭用户词典
+  enable_user_dict: false
+  enable_completion: false
+  # 最高出字优先级
+  initial_quality: 1000
+
+speller:
+  # 音节间分音符
+  delimiter: "'"
+  # 自动上屏
+  auto_select: false
+  # 最大码长超过则顶字上屏
+  # max_code_length: 4
+
+translator:
+  dictionary: zhengma
+  prism: zhengma_pinyin
+  # 字符集过滤
+  enable_charset_filter: false
+  # 自动造句
+  enable_sentence: true
+  # 自动造词
+  enable_encoder: true
+  # 对已上屏词自动成词
+  encode_commit_history: false
+  # 最大自动成词词长
+  # max_phrase_length: 4
+  # 逐渐提示
+  enable_completion: true
+  # 用户词典
+  enable_user_dict: true
+  disable_user_dict_for_patterns:
+    - "^`.*$"
+
+abc_segmentor:
+  extra_tags:
+    - reverse_lookup
+
+reverse_lookup:
+  dictionary: pinyin_simp
+  prefix: "`"
+  suffix: "'"
+  tips: [ 拼音 ]
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+
+key_binder:
+  import_preset: default
+  bindings:
+    # Shift加空格切换全角和半角
+    - { accept: Shift+space, toggle: full_shape, when: always }
+    # Control加逗号切换中英文输入
+    - { accept: Control+comma, toggle: ascii_mode, when: always }
+    # Control加空格切换中英文输入
+    - { accept: Control+space, toggle: ascii_mode, when: always }
+    # Control加句号切换中英文标点
+    - { accept: Control+period, toggle: ascii_punct, when: always }
+  
+recognizer:
+  import_preset: default
+  patterns:
+    # 编码反查
+    reverse_lookup: "^`[a-z]*'?$"
+    # 输入symbols.yaml中的特殊字符
+    punct: "/[a-z]*$"
+
+ascii_composer:
+  import_preset: default
+  good_old_caps_lock: false
+  switch_key:
+    # Shift键不单独使用
+    Shift_L: noop
+    Shift_R: noop
+    # Control键不单独使用
+    Control_L: noop
+    Control_R: noop
+    Caps_Lock: clear
+    Eisu_toggle: clear
+
+punctuator:
+  import_preset: symbols
+  # 中文标点符号
+  half_shape:
+    ',' : { commit: ， }
+    '.' : { commit: 。 }
+    '<' : 《
+    '>' :  》
+    '/' : '/'
+    '?' : { commit: ？ }
+    ';' : { commit: ； }
+    ':' : { commit: ： }
+    '''' : { pair: [ '‘', '’' ] }
+    '"' : { pair: [ '“', '”' ] }
+    '\' : 、
+    '|' : '|'
+    '`' : '`'
+    '~' : '~'
+    '!' : { commit: ！ }
+    '@' : '@'
+    '#' : '#'
+    '%' : '%'
+    '$' : ￥
+    '^' : { commit: …… }
+    '&' : '&'
+    '*' : '*'
+    '(' : （
+    ')' : ）
+    '-' : '-'
+    '_' : '_'
+    '+' : '+'
+    '=' : '='
+    '[' : '['
+    ']' : ']'
+    '{' : '{'
+    '}' : '}'
