@@ -1,0 +1,8 @@
+patch:
+  schema_list:
+    # 郑码
+    - {schema: zhengma}
+    # 郑码打简出繁
+    - {schema: zhengma_trad}
+    # 郑码拼音
+    - {schema: zhengma_pinyin}

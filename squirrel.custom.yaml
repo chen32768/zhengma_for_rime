@@ -1,0 +1,5 @@
+patch:
+  # 候选栏文字字号
+  style/font_point: 18
+  # 候选栏编号字号
+  style/label_font_point: 18
