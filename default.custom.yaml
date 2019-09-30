@@ -6,3 +6,12 @@ patch:
     - {schema: zhengma_trad}
     # 郑码拼音
     - {schema: zhengma_pinyin}
+
+  # 配置caps_lock键为中/英切换键
+  ascii_composer/good_old_caps_lock: false
+  ascii_composer/switch_key:
+    Caps_Lock: commit_code
+    Shift_L: noop
+    Shift_R: noop
+    Control_L: noop
+    Control_R: noop
