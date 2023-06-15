@@ -3,3 +3,6 @@ patch:
   style/font_point: 18
   # 候选栏编号字号
   style/label_font_point: 18
+  # App默认使用中文模式
+  app_options:
+    ascii_mode: 0
